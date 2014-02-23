@@ -1,0 +1,23 @@
+/*
+ * A CodeMirror theme based on Solarized made for the Elixir language.
+ */
+
+.cm-s-elixir.CodeMirror {background: #fdf6e3; color: #586e75;}
+.cm-s-elixir div.CodeMirror-selected {background: #839496 !important;}
+.cm-s-elixir .CodeMirror-gutters {background: #eee8d5; border-right: 0px;}
+.cm-s-elixir .CodeMirror-linenumber {color: #93a1a1;}
+.cm-s-elixir .CodeMirror-cursor {border-left: 2px solid #586e75 !important;}
+
+.cm-s-elixir span.cm-comment {color: #93a1a1;}
+.cm-s-elixir span.cm-string {color: #2aa198;}
+.cm-s-elixir span.cm-atom {color: #d33682;}
+.cm-s-elixir span.cm-attribute {color: #6c71c4;}
+.cm-s-elixir span.cm-number {color: #b58900;}
+.cm-s-elixir span.cm-keyword {color: #ac4142;}
+.cm-s-elixir span.cm-constant {color: #268bd2;}
+.cm-s-elixir span.cm-variable {color: #90a959;}
+.cm-s-elixir span.cm-def {color: #cb4b16;}
+.cm-s-elixir span.cm-defined {color: #b58900;}
+
+.cm-s-elixir .CodeMirror-activeline-background {background: #eee8d5 !important;}
+.cm-s-elixir .CodeMirror-matchingbracket { text-decoration: underline; color: #586e75 !important;}

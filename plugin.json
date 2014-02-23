@@ -1,0 +1,10 @@
+{
+  "name": "Elixir",
+  "author": "Arnaud Wetzel",
+  "version": "0.0.1",
+  "source": "https://github.com/awetzel/lighttable-elixir",
+  "desc": "Elixir syntax color for lighttable",
+  "dependencies": {
+  },
+  "behaviors": "elixir.behaviors"
+}

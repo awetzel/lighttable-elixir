@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CodeMirror: Elixir mode</title>
+    <link rel="stylesheet" href="codemirror.css">
+    <link rel="stylesheet" href="elixir.css">
+    <script src="codemirror.js"></script>
+    <script src="elixir.js"></script>
+    <style>
+      body { font-family: sans-serif; }
+      .CodeMirror { font-family: Menlo, monospace; height: 640px; }
+    </style>
+  </head>
+  <body>
+    <h1>CodeMirror: Elixir mode</h1>
+
+<textarea id="code" name="code">
+defmodule Mix do
+  @moduledoc &quot;&quot;&quot;
+  Mix is a build tool that provides tasks for creating, compiling, testing
+  (and soon deploying) Elixir projects. Mix is inspired by the Leiningen
+  build tool for Clojure and was written by one of its contributors.
+
+  This module works as a facade for accessing the most common functionality
+  in Elixir, such as the shell and the current project configuration.
+
+  For getting started with Elixir, checkout out the guide available on
+  [Elixir's website](http://elixir-lang.org).
+  &quot;&quot;&quot;
+
+  use Application.Behaviour
+
+  # Used internally to start the mix application and its dependencies.
+  @doc false
+  def start do
+    :application.start(:elixir)
+    :application.start(:mix)
+  end
+
+  # Application behaviour callback
+  @doc false
+  def start(_, []) do
+    resp = Mix.Sup.start_link get_env
+    Mix.SCM.register_builtin
+    resp
+  end
+
+  @doc &quot;&quot;&quot;
+  Returns the mix environment.
+  &quot;&quot;&quot;
+  def env do
+    Mix.Server.call(:env)
+  end
+
+  @doc &quot;&quot;&quot;
+  Changes the current mix env. Project configuration loaded
+  per environment will not be reloaded.
+  &quot;&quot;&quot;
+  def env(env) when is_atom(env) do
+    Mix.Server.cast({ :env, env })
+  end
+
+  defp get_env do
+    if env = System.get_env(&quot;MIX_ENV&quot;) do
+      binary_to_atom env
+    else
+      :dev
+    end
+  end
+
+  @doc &quot;&quot;&quot;
+  Starts mix and loads the project and dependencies in
+  one step. Useful when invoking mix from an external tool.
+  &quot;&quot;&quot;
+  def loadpaths do
+    Mix.start
+    Mix.Task.run &quot;loadpaths&quot;
+  end
+
+  @doc &quot;&quot;&quot;
+  The shell is a wrapper for doing IO.
+
+  It contains conveniences for asking the user information,
+  printing status and so forth. It is also swappable,
+  allowing developers to use a test shell that simply sends the
+  messages to the current process.
+  &quot;&quot;&quot;
+  def shell do
+    Mix.Server.call(:shell)
+  end
+
+  @doc &quot;&quot;&quot;
+  Sets the current shell.
+  &quot;&quot;&quot;
+  def shell(shell) do
+    Mix.Server.cast({ :shell, shell })
+  end
+
+  @doc &quot;&quot;&quot;
+  Retrieves the current project configuration, with the current
+  environment configuration applied.
+
+  If there is no project defined, it still returns a keyword
+  list with default values. This allows many mix tasks to work
+  without the need for an underlying project.
+  &quot;&quot;&quot;
+  def project do
+    Mix.Project.config
+  end
+end
+</textarea>
+
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        mode: "text/x-elixir",
+        theme: "elixir"
+      });
+    </script>
+  </body>
+</html>
